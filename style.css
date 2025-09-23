@@ -1,0 +1,197 @@
+/* 通用樣式 */
+html {
+    scroll-behavior: smooth; /* 平滑捲動 */
+}
+
+body {
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    color: #f7fafc; /* 文字顏色 */
+    background-color: #1a202c; /* 背景色 */
+    line-height: 1.6;
+}
+
+h1, h2, h3 {
+    font-family: 'Montserrat', sans-serif;
+    color: #4fd1c5; /* 強調色 */
+}
+
+a {
+    color: #4fd1c5;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* 導覽列 */
+.navbar {
+    background-color: #2d3748; /* 卡片背景色 */
+    padding: 1rem 0;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.navbar nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+}
+
+.navbar nav ul li a {
+    color: #f7fafc;
+    font-weight: 700;
+    padding: 0.5rem 1rem;
+    transition: color 0.3s ease;
+}
+
+.navbar nav ul li a:hover {
+    color: #4fd1c5;
+    text-decoration: none;
+}
+
+/* 區塊通用設定 */
+section {
+    padding: 4rem 1rem;
+    max-width: 960px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+/* 英雄區塊 */
+.hero-section {
+    min-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background: linear-gradient(rgba(26, 32, 44, 0.8), rgba(26, 32, 44, 0.8)), url('https://via.placeholder.com/1500x800?text=Hero+Image') center center / cover no-repeat; /* 可替換背景圖 */
+}
+
+.hero-section h1 {
+    font-size: 3.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.hero-section p {
+    font-size: 1.5rem;
+    color: #cbd5e0;
+}
+
+/* 關於我 */
+.about-me p {
+    font-size: 1.1rem;
+    max-width: 700px;
+    margin: 1rem auto;
+}
+
+/* 專案區塊 */
+.projects-section h2 {
+    margin-bottom: 2rem;
+}
+
+.project-cards-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.project-card {
+    background-color: #2d3748; /* 卡片背景色 */
+    padding: 1.5rem;
+    border-radius: 8px;
+    text-align: left;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.project-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.project-card h3 {
+    margin-top: 0;
+    color: #4fd1c5;
+}
+
+.project-card p {
+    color: #cbd5e0;
+}
+
+/* 聯絡方式 */
+.contact-section {
+    padding-bottom: 6rem; /* 讓按鈕下方有更多空間 */
+}
+
+.email-button {
+    display: inline-block;
+    background-color: #4fd1c5; /* 強調色 */
+    color: #1a202c; /* 按鈕文字顏色 */
+    padding: 0.8rem 2rem;
+    border-radius: 5px;
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-top: 1.5rem;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.email-button:hover {
+    background-color: #38b2ac; /* hover 時顏色稍暗 */
+    transform: translateY(-2px);
+    text-decoration: none;
+}
+
+/* 頁尾 */
+.footer {
+    background-color: #2d3748;
+    padding: 2rem 1rem;
+    text-align: center;
+    color: #cbd5e0;
+    font-size: 0.9rem;
+    border-top: 1px solid #4a5568;
+}
+
+.footer .social-links a {
+    margin: 0 10px;
+    color: #f7fafc;
+    transition: color 0.3s ease;
+}
+
+.footer .social-links a:hover {
+    color: #4fd1c5;
+    text-decoration: none;
+}
+
+.footer p {
+    margin-top: 1rem;
+    margin-bottom: 0;
+}
+
+/* 響應式佈局 */
+@media (max-width: 768px) {
+    .navbar nav ul {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .hero-section h1 {
+        font-size: 2.5rem;
+    }
+
+    .hero-section p {
+        font-size: 1.2rem;
+    }
+
+    .project-cards-container {
+        grid-template-columns: 1fr;
+    }
+}
