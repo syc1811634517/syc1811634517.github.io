@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>專案 | Little Penguin</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&family=Montserrat:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+    <header class="navbar">
+        <div class="container">
+            <a href="index.html" class="logo">Little Penguin</a>
+            <nav>
+                <ul>
+                    <li><a href="about.html">關於我</a></li>
+                    <li><a href="projects.html" class="active">專案</a></li>
+                    <li><a href="contact.html">聯絡我</a></li>
+                    <li><a href="resume/Little_Penguin_Resume.pdf" target="_blank">履歷</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="page-transition">
+        <main>
+            <section class="page-section">
+                <div class="container">
+                    <h2>我的專案</h2>
+                    <div class="project-cards-container">
+                        <article class="project-card">
+                            <div class="project-image" style="background-image: url('images/project-asl.jpg');"></div>
+                            <div class="project-card-content">
+                                <h3>Python & ASL (美國手語辨識)</h3>
+                                <p>利用 TensorFlow 深度學習框架，建立一個能夠即時辨識美國手語的模型。</p>
+                                <a href="projects/project-asl.html" class="project-link">詳細資訊 &rarr;</a>
+                            </div>
+                        </article>
+                        <article class="project-card">
+                            <div class="project-image" style="background-image: url('images/project-finance.jpg');"></div>
+                            <div class="project-card-content">
+                                <h3>Financial Table (簡易財報視窗)</h3>
+                                <p>使用 Python 內建的 Tkinter GUI 函式庫，打造一個簡易的桌面應用程式。</p>
+                                <a href="projects/project-finance.html" class="project-link">詳細資訊 &rarr;</a>
+                            </div>
+                        </article>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+    
+    <footer class="footer">
+        <div class="social-links">
+            <a href="https://github.com/syc1811634517" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
+        </div>
+        <p>&copy; 2025 Little Penguin. 版權所有.</p>
+    </footer>
+    <script src="js/app.js"></script>
+</body>
+</html>
