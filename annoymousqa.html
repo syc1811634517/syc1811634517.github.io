@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>匿名問答 | Little Penguin</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&family=Montserrat:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        .qa-container {
+            text-align: center;
+        }
+        iframe {
+            width: 100%;
+            height: 800px;
+            border: none;
+            border-radius: 10px;
+        }
+        .back-btn {
+            display: inline-block;
+            margin-top: 2rem;
+            background-color: var(--primary-color);
+            color: var(--background-color);
+            padding: 0.7rem 2rem;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 700;
+            text-decoration: none;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+        .back-btn:hover {
+            background-color: #fff;
+            transform: translateY(-3px);
+            box-shadow: 0 4px 15px rgba(79, 209, 197, 0.4);
+        }
+    </style>
+</head>
+<body>
+    <header class="navbar">
+        <div class="container">
+            <a href="index.html" class="logo">Little Penguin</a>
+            <nav>
+                <ul>
+                    <li><a href="about.html">關於我</a></li>
+                    <li><a href="projects.html">專案</a></li>
+                    <li><a href="contact.html">聯絡我</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="page-section">
+            <div class="container qa-container">
+                <h2>匿名問答</h2>
+                <p>你可以在這裡匿名留下想對我說的話、問題或建議</p>
+
+                <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSdwZam7fiSB1X2HBIvAldViTKJp1yPmUS-uLZLEZOI5ybDHnQ/viewform?embedded=true"></iframe>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="social-links">
+            <a href="https://github.com/syc1811634517" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
+            <a href="https://www.instagram.com/你的帳號" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="https://www.facebook.com/你的帳號" target="_blank" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+            <a href="https://discord.gg/你的伺服器代碼" target="_blank" aria-label="Discord"><i class="fab fa-discord"></i></a>
+        </div>
+        <p>&copy; 2025 Little Penguin. 版權所有.</p>
+    </footer>
+</body>
+</html>
