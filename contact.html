@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>聯絡我 | Little Penguin</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&family=Montserrat:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        .contact-container {
+            text-align: center;
+        }
+
+        .contact-info {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto 2rem;
+        }
+
+        .contact-buttons {
+            margin-top: 2.5rem;
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .contact-buttons a {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: var(--background-color);
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            text-decoration: none;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .contact-buttons a:hover {
+            background-color: #fff;
+            transform: translateY(-3px);
+            box-shadow: 0 4px 15px rgba(79, 209, 197, 0.4);
+        }
+    </style>
+</head>
+<body>
+    <header class="navbar">
+        <div class="container">
+            <a href="index.html" class="logo">Little Penguin</a>
+            <nav>
+                <ul>
+                    <li><a href="about.html">關於我</a></li>
+                    <li><a href="projects.html">專案</a></li>
+                    <li><a href="contact.html" class="active">聯絡我</a></li>
+                    <li><a href="resume/Little_Penguin_Resume.pdf" target="_blank">履歷</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="page-section" id="contact">
+            <div class="container contact-container">
+                <h2>聯絡我</h2>
+                <p class="contact-info">
+                    有任何想問我的問題，歡迎透過以下方式與我聯絡。<br>
+                </p>
+
+                <div class="contact-buttons">
+                    <a href="mailto:mark.ptc@proton.me"><i class="fa-solid fa-envelope"></i> Email</a>
+                    <a href="mailto:t1112b0019@ntut.org.tw"><i class="fa-solid fa-envelope"></i> School Email</a>
+                    <a href="https://www.facebook.com/littlepenguin16830" target="_blank"><i class="fab fa-facebook"></i> Facebook</a>
+                    <a href="https://www.instagram.com/little_penguin_168" target="_blank"><i class="fab fa-instagram"></i> Instagram</a>
+                    <a href="https://line.me/ti/p/f7KFidWxYz8" target="_blank"><i class="fab fa-line"></i> Line</a>
+                    <a href="https://discordapp.com/users/877804875843510292" target="_blank"><i class="fab fa-discord"></i> Discord</a>
+                    <a href="https://github.com/syc1811634517" target="_blank"><i class="fab fa-github"></i> GitHub</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="social-links">
+            <a href="https://www.facebook.com/littlepenguin16830" target="_blank" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+            <a href="https://www.instagram.com/little_penguin_168" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="https://line.me/ti/p/f7KFidWxYz8" target="_blank"><i class="fab fa-line"></i></a>
+            <a href="https://discordapp.com/users/877804875843510292" target="_blank" aria-label="Discord"><i class="fab fa-discord"></i></a>
+            <a href="https://github.com/syc1811634517" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
+        </div>
+        <p>&copy; 2025 Little Penguin. 版權所有.</p>
+    </footer>
+</body>
+</html>
