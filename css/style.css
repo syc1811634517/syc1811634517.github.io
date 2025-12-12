@@ -88,7 +88,7 @@ body {
     display: flex; 
     gap: 2rem; 
     align-items: center; 
-    margin-right: 3rem; /* 預留空間給右上角的切換按鈕 */
+    margin-right: 3rem; 
 }
 
 .navbar nav ul li a { 
@@ -107,7 +107,7 @@ body {
 }
 .navbar nav ul li a:hover::after, .navbar nav ul li a.active::after { width: 100%; }
 
-/* 主題切換按鈕 (固定在右上角) */
+/* 主題切換按鈕 */
 .theme-toggle {
     background: none; 
     border: none; 
@@ -119,18 +119,31 @@ body {
     display: flex; 
     align-items: center; 
     justify-content: center;
-    /* 這裡讓它絕對定位在容器最右邊 */
     position: absolute;
-    right: 1.5rem; /* 對齊 container padding */
+    right: 1.5rem; 
     top: 50%;
     transform: translateY(-50%);
 }
 .theme-toggle:hover { color: var(--primary-color); transform: translateY(-50%) rotate(15deg); }
 
-/* --- 頁面轉場 --- */
-.page-transition { animation: fadeInUp 0.6s cubic-bezier(0.2, 0.8, 0.2, 1); }
+/* --- 頁面轉場 (已修復淡入淡出) --- */
+.page-transition {
+    /* 預設狀態：完全顯示 */
+    opacity: 1;
+    transform: translateY(0);
+    /* 關鍵：加入 transition 讓 opacity 和 transform 變化有動畫效果 */
+    transition: opacity 0.4s ease-out, transform 0.4s ease-out;
+    /* 首次加載時的動畫 */
+    animation: fadeInUp 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
 @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-body.fade-out .page-transition { opacity: 0; transform: translateY(-10px); transition: all 0.4s ease-in; }
+
+/* 當 body 有 fade-out class 時的狀態 (切換頁面時觸發) */
+body.fade-out .page-transition {
+    opacity: 0;
+    transform: translateY(-10px);
+}
 
 /* --- Hero Section --- */
 .hero-section {
@@ -216,9 +229,9 @@ body.fade-out .page-transition { opacity: 0; transform: translateY(-10px); trans
     transition: filter 0.5s ease;
 }
 
-/* --- 聯絡我按鈕 (確保無底線) --- */
+/* --- 聯絡我按鈕 --- */
 .contact-buttons a {
-    text-decoration: none !important; /* 強制無底線 */
+    text-decoration: none !important;
     border-bottom: none !important;
 }
 .contact-buttons a:hover {
@@ -248,17 +261,39 @@ body.fade-out .page-transition { opacity: 0; transform: translateY(-10px); trans
     padding: 3rem 1rem; text-align: center; color: var(--text-muted);
     border-top: 1px solid var(--border-color);
     backdrop-filter: blur(10px);
+    position: relative; /* 為了定位隱藏連結 */
 }
 .footer .social-links a {
     margin: 0 12px; color: var(--text-muted); font-size: 1.5rem;
     transition: all 0.3s ease; display: inline-flex;
     width: 45px; height: 45px; align-items: center; justify-content: center;
     border-radius: 50%; background: rgba(255,255,255,0.05);
-    text-decoration: none !important; /* 強制無底線 */
+    text-decoration: none !important;
 }
 .footer .social-links a:hover {
     color: #fff; background: var(--primary-color); transform: translateY(-3px);
     text-decoration: none !important;
+}
+
+/* --- 隱藏彩蛋連結樣式 --- */
+.secret-container {
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.secret-link {
+    color: var(--navbar-background); /* 文字顏色與背景相同，達成隱形效果 */
+    text-decoration: none;
+    font-size: 1rem;
+    user-select: none; /* 防止使用者選取文字發現 */
+    cursor: default; /* 預設游標，更難發現 */
+    transition: color 0.3s;
+}
+/* 如果你想讓滑鼠移過去時稍微變色（可選，目前設為依然隱形但變為手指） */
+.secret-link:hover {
+    cursor: pointer; 
+    /* color: var(--text-muted); 解開這行註解會讓滑鼠懸停時顯示出來 */
 }
 
 /* --- RWD 修正 --- */
@@ -271,7 +306,7 @@ body.fade-out .page-transition { opacity: 0; transform: translateY(-10px); trans
         flex-wrap: wrap; justify-content: center;
     }
     .theme-toggle {
-        position: static; /* 手機版不強制固定右上，避免跑版 */
+        position: static;
         transform: none;
         margin-top: 0.5rem;
     }
