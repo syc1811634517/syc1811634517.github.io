@@ -11,7 +11,7 @@
     --text-muted: #a0aec0;
     --border-color: rgba(255, 255, 255, 0.1);
     --shadow-color: rgba(0, 0, 0, 0.4);
-    --form-filter: invert(1) hue-rotate(180deg);
+    --form-filter: invert(1) hue-rotate(180deg); /* 讓白色底的 iframe 變深色 */
     
     --heading-font: 'Montserrat', sans-serif;
     --body-font: 'Noto Sans TC', sans-serif;
@@ -126,20 +126,18 @@ body {
 }
 .theme-toggle:hover { color: var(--primary-color); transform: translateY(-50%) rotate(15deg); }
 
-/* --- 頁面轉場 (已修復淡入淡出) --- */
+/* --- 頁面轉場 (淡入 + 淡出) --- */
 .page-transition {
-    /* 預設狀態：完全顯示 */
     opacity: 1;
     transform: translateY(0);
-    /* 關鍵：加入 transition 讓 opacity 和 transform 變化有動畫效果 */
     transition: opacity 0.4s ease-out, transform 0.4s ease-out;
-    /* 首次加載時的動畫 */
+    /* 首次載入動畫 */
     animation: fadeInUp 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
 @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
-/* 當 body 有 fade-out class 時的狀態 (切換頁面時觸發) */
+/* 淡出狀態 */
 body.fade-out .page-transition {
     opacity: 0;
     transform: translateY(-10px);
@@ -215,16 +213,17 @@ body.fade-out .page-transition {
 }
 .skills-list span:hover { transform: translateY(-3px); border-color: var(--primary-color); }
 
-/* --- Google Form 美化 --- */
-.google-form-wrapper {
+/* --- 內嵌內容 (Google Form / Web App) 美化 --- */
+.embed-wrapper {
     position: relative;
     width: 100%; max-width: 800px; margin: 0 auto;
     border-radius: 12px; overflow: hidden;
     background: var(--card-background);
     box-shadow: 0 8px 32px 0 var(--shadow-color);
 }
-.google-form-wrapper iframe {
+.embed-wrapper iframe {
     width: 100%; height: 850px; border: none; display: block;
+    /* 這裡使用濾鏡讓 iframe 內容反轉顏色，適應 Dark Mode */
     filter: var(--form-filter); 
     transition: filter 0.5s ease;
 }
@@ -261,7 +260,6 @@ body.fade-out .page-transition {
     padding: 3rem 1rem; text-align: center; color: var(--text-muted);
     border-top: 1px solid var(--border-color);
     backdrop-filter: blur(10px);
-    position: relative; /* 為了定位隱藏連結 */
 }
 .footer .social-links a {
     margin: 0 12px; color: var(--text-muted); font-size: 1.5rem;
@@ -273,27 +271,6 @@ body.fade-out .page-transition {
 .footer .social-links a:hover {
     color: #fff; background: var(--primary-color); transform: translateY(-3px);
     text-decoration: none !important;
-}
-
-/* --- 隱藏彩蛋連結樣式 --- */
-.secret-container {
-    margin-top: 10px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-.secret-link {
-    color: var(--navbar-background); /* 文字顏色與背景相同，達成隱形效果 */
-    text-decoration: none;
-    font-size: 1rem;
-    user-select: none; /* 防止使用者選取文字發現 */
-    cursor: default; /* 預設游標，更難發現 */
-    transition: color 0.3s;
-}
-/* 如果你想讓滑鼠移過去時稍微變色（可選，目前設為依然隱形但變為手指） */
-.secret-link:hover {
-    cursor: pointer; 
-    /* color: var(--text-muted); 解開這行註解會讓滑鼠懸停時顯示出來 */
 }
 
 /* --- RWD 修正 --- */
