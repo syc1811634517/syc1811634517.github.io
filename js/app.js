@@ -3,16 +3,12 @@ document.addEventListener("DOMContentLoaded", () => {
     const themeToggleBtn = document.getElementById('theme-toggle-btn');
     
     /* --- 1. 主題切換 (Dark/Light Mode) --- */
-    // 初始化：檢查 localStorage 或系統偏好
     const initTheme = () => {
         const savedTheme = localStorage.getItem('theme');
-        const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        
         if (savedTheme) {
             document.documentElement.setAttribute('data-theme', savedTheme);
             updateThemeIcon(savedTheme);
         } else {
-            // 預設為 Dark，如果想預設 Light，可以改這裡
             const defaultTheme = 'dark'; 
             document.documentElement.setAttribute('data-theme', defaultTheme);
             updateThemeIcon(defaultTheme);
@@ -31,9 +27,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const updateThemeIcon = (theme) => {
         const icon = themeToggleBtn.querySelector('i');
         if (theme === 'light') {
-            icon.className = 'fa-solid fa-moon'; // 亮色模式下顯示月亮 (切換到深色)
+            icon.className = 'fa-solid fa-moon'; 
         } else {
-            icon.className = 'fa-solid fa-sun'; // 深色模式下顯示太陽 (切換到亮色)
+            icon.className = 'fa-solid fa-sun'; 
         }
     };
 
@@ -58,11 +54,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
         event.preventDefault();
         
+        // 1. 開始淡出
         document.body.classList.add('fade-out');
         
+        // 2. 等待淡出動畫完成 (400ms 配合 CSS transition 時間)
         setTimeout(() => {
             fetchPage(url);
-        }, 300); // 配合 CSS 動畫時間
+        }, 400); 
     };
 
     const fetchPage = async (url) => {
@@ -77,26 +75,29 @@ document.addEventListener("DOMContentLoaded", () => {
             const newContent = doc.querySelector('.page-transition').innerHTML;
             const newTitle = doc.querySelector('title').innerText;
             
+            // 3. 替換內容
             mainContentContainer.innerHTML = newContent;
             document.title = newTitle;
 
-            // --- 網址美化關鍵 ---
-            // 移除 .html，如果是 index 也移除
+            // URL 處理
             let displayUrl = url;
             if (displayUrl.endsWith('index.html')) {
                 displayUrl = displayUrl.replace('/index.html', '/');
             } else {
                 displayUrl = displayUrl.replace('.html', '');
             }
-            
             window.history.pushState({ path: displayUrl, fetchUrl: url }, '', displayUrl);
 
-            // 重新綁定事件 (因為 DOM 換了)
             bindNavLinks();
             updateActiveLink();
             
-            document.body.classList.remove('fade-out');
             window.scrollTo(0, 0);
+
+            // 4. 移除 fade-out class，觸發 CSS 的淡入 transition
+            // 使用 requestAnimationFrame 確保瀏覽器已渲染新內容
+            requestAnimationFrame(() => {
+                document.body.classList.remove('fade-out');
+            });
 
         } catch (error) {
             console.error('頁面加載失敗:', error);
@@ -105,15 +106,12 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     const updateActiveLink = () => {
-        // 取得當前真實路徑，並處理 .html 結尾的情況以進行比對
         let currentPath = window.location.pathname;
         if (currentPath.endsWith('/')) currentPath += 'index.html';
         if (!currentPath.endsWith('.html')) currentPath += '.html';
 
         document.querySelectorAll('.navbar nav a').forEach(link => {
             const linkPath = new URL(link.href).pathname;
-            
-            // 簡單的路徑比對
             if (linkPath === currentPath || (currentPath.includes('/projects/') && linkPath.includes('projects.html'))) {
                 link.classList.add('active');
             } else {
@@ -132,8 +130,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     window.addEventListener('popstate', (event) => {
-        // 如果按上一頁，我們需要知道原本的 HTML 檔案在哪
-        // 這裡做一個簡單的 fallback：如果 state 裡沒有 fetchUrl，就嘗試把當前網址加 .html
         let targetUrl = window.location.href;
         if (event.state && event.state.fetchUrl) {
             targetUrl = event.state.fetchUrl;
@@ -144,7 +140,7 @@ document.addEventListener("DOMContentLoaded", () => {
         document.body.classList.add('fade-out');
         setTimeout(() => {
             fetchPage(targetUrl);
-        }, 300);
+        }, 400);
     });
 
     bindNavLinks();
