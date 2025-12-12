@@ -166,13 +166,12 @@ body.fade-out .page-transition { opacity: 0; transform: translateY(-10px); }
 .embed-wrapper {
     position: relative;
     /* 修改這裡：放寬最大寬度 */
-    width: 100%; 
-    max-width: 100%; /* 原本是 800px，改為 100% 讓它填滿 container */
+    max-width: 100%; 
     margin: 0 auto;
     border-radius: 12px; overflow: hidden;
 }
 .embed-wrapper iframe {
-    width: 100%; height: 850px; border: none; display: block;
+    border: none; display: block;
     filter: var(--form-filter); 
     transition: filter 0.5s ease;
 }
