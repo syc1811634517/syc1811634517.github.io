@@ -54,10 +54,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
         event.preventDefault();
         
-        // 1. 開始淡出
+        // 1. 淡出
         document.body.classList.add('fade-out');
         
-        // 2. 等待淡出動畫完成 (400ms 配合 CSS transition 時間)
+        // 2. 等待動畫完成後 (400ms) 載入新內容
         setTimeout(() => {
             fetchPage(url);
         }, 400); 
@@ -75,11 +75,9 @@ document.addEventListener("DOMContentLoaded", () => {
             const newContent = doc.querySelector('.page-transition').innerHTML;
             const newTitle = doc.querySelector('title').innerText;
             
-            // 3. 替換內容
             mainContentContainer.innerHTML = newContent;
             document.title = newTitle;
 
-            // URL 處理
             let displayUrl = url;
             if (displayUrl.endsWith('index.html')) {
                 displayUrl = displayUrl.replace('/index.html', '/');
@@ -93,8 +91,7 @@ document.addEventListener("DOMContentLoaded", () => {
             
             window.scrollTo(0, 0);
 
-            // 4. 移除 fade-out class，觸發 CSS 的淡入 transition
-            // 使用 requestAnimationFrame 確保瀏覽器已渲染新內容
+            // 3. 移除 fade-out class 觸發淡入
             requestAnimationFrame(() => {
                 document.body.classList.remove('fade-out');
             });
@@ -112,6 +109,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         document.querySelectorAll('.navbar nav a').forEach(link => {
             const linkPath = new URL(link.href).pathname;
+            // 比對路徑來決定哪個連結亮起
             if (linkPath === currentPath || (currentPath.includes('/projects/') && linkPath.includes('projects.html'))) {
                 link.classList.add('active');
             } else {
