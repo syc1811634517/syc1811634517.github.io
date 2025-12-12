@@ -8,41 +8,33 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&family=Montserrat:wght@700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
-        .contact-container {
-            text-align: center;
-        }
-
+        .contact-container { text-align: center; }
         .contact-info {
             font-size: 1.2rem;
             color: var(--text-muted);
             max-width: 600px;
             margin: 0 auto 2rem;
         }
-
         .contact-buttons {
             margin-top: 2.5rem;
-            display: flex;
-            justify-content: center;
-            gap: 1.5rem;
-            flex-wrap: wrap;
+            display: flex; justify-content: center; gap: 1.5rem; flex-wrap: wrap;
         }
-
         .contact-buttons a {
             display: inline-block;
             background-color: var(--primary-color);
-            color: var(--background-color);
+            color: #fff; /* 強制文字白色，避免受深色模式文字影響 */
             padding: 0.8rem 2rem;
             border-radius: 50px;
             font-size: 1.1rem;
             font-weight: 700;
             text-decoration: none;
             transition: background-color 0.3s ease, transform 0.3s ease;
+            box-shadow: 0 4px 15px rgba(79, 209, 197, 0.3);
         }
-
         .contact-buttons a:hover {
-            background-color: #fff;
+            background-color: var(--primary-hover);
             transform: translateY(-3px);
-            box-shadow: 0 4px 15px rgba(79, 209, 197, 0.4);
+            box-shadow: 0 8px 25px rgba(79, 209, 197, 0.5);
         }
     </style>
 </head>
@@ -56,31 +48,35 @@
                     <li><a href="projects.html">專案</a></li>
                     <li><a href="contact.html" class="active">聯絡我</a></li>
                     <li><a href="annoymousqa.html">匿名問答</a></li>
-                    </ul>
+                </ul>
+                <button id="theme-toggle-btn" class="theme-toggle" aria-label="切換主題">
+                    <i class="fa-solid fa-sun"></i>
+                </button>
             </nav>
         </div>
     </header>
 
-    <main>
-        <section class="page-section" id="contact">
-            <div class="container contact-container">
-                <h2>聯絡我</h2>
-                <p class="contact-info">
-                    有任何想問我的問題，歡迎透過以下方式與我聯絡。<br>
-                </p>
+    <div class="page-transition">
+        <main>
+            <section class="page-section" id="contact">
+                <div class="container contact-container">
+                    <h2>聯絡我</h2>
+                    <p class="contact-info">
+                        有任何想問我的問題，歡迎透過以下方式與我聯絡。<br>
+                    </p>
 
-                <div class="contact-buttons">
-                    <a href="mailto:mark.ptc@proton.me"><i class="fa-solid fa-envelope"></i> Email</a>
-                    <a href="mailto:t1112b0019@ntut.org.tw"><i class="fa-solid fa-envelope"></i> School Email</a>
-                    <a href="https://www.facebook.com/littlepenguin16830" target="_blank"><i class="fab fa-facebook"></i> Facebook</a>
-                    <a href="https://www.instagram.com/little_penguin_168" target="_blank"><i class="fab fa-instagram"></i> Instagram</a>
-                    <a href="https://line.me/ti/p/f7KFidWxYz8" target="_blank"><i class="fab fa-line"></i> Line</a>
-                    <a href="https://discordapp.com/users/877804875843510292" target="_blank"><i class="fab fa-discord"></i> Discord</a>
-                    <a href="https://github.com/syc1811634517" target="_blank"><i class="fab fa-github"></i> GitHub</a>
+                    <div class="contact-buttons">
+                        <a href="mailto:mark.ptc@proton.me"><i class="fa-solid fa-envelope"></i> Email</a>
+                        <a href="mailto:t1112b0019@ntut.org.tw"><i class="fa-solid fa-envelope"></i> School Email</a>
+                        <a href="https://www.facebook.com/littlepenguin16830" target="_blank"><i class="fab fa-facebook"></i> Facebook</a>
+                        <a href="https://www.instagram.com/little_penguin_168" target="_blank"><i class="fab fa-instagram"></i> Instagram</a>
+                        <a href="https://discordapp.com/users/877804875843510292" target="_blank"><i class="fab fa-discord"></i> Discord</a>
+                        <a href="https://github.com/syc1811634517" target="_blank"><i class="fab fa-github"></i> GitHub</a>
+                    </div>
                 </div>
-            </div>
-        </section>
-    </main>
+            </section>
+        </main>
+    </div>
 
     <footer class="footer">
         <div class="social-links">
@@ -91,5 +87,6 @@
         </div>
         <p>&copy; 2025 Little Penguin. 版權所有.</p>
     </footer>
+    <script src="js/app.js"></script>
 </body>
 </html>
