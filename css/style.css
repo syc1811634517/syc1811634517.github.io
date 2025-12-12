@@ -33,7 +33,7 @@
     --form-filter: none;
 }
 
-/* --- 基礎設定 (包含 Footer 置底修正) --- */
+/* --- 基礎設定 (Footer 置底) --- */
 html { scroll-behavior: smooth; }
 body {
     margin: 0;
@@ -45,7 +45,7 @@ body {
     transition: background 0.5s ease, color 0.5s ease;
     min-height: 100vh;
     
-    /* === Footer 置底關鍵設定 === */
+    /* Footer 置底關鍵設定 */
     display: flex;
     flex-direction: column;
 }
@@ -79,30 +79,14 @@ body {
     letter-spacing: -0.5px; 
 }
 
-/* 導覽連結 */
-.navbar nav {
-    display: flex;
-    align-items: center;
-}
-
+.navbar nav { display: flex; align-items: center; }
 .navbar nav ul { 
-    list-style: none; 
-    margin: 0; 
-    padding: 0; 
-    display: flex; 
-    gap: 2rem; 
-    align-items: center; 
-    margin-right: 3rem; 
+    list-style: none; margin: 0; padding: 0; 
+    display: flex; gap: 2rem; align-items: center; margin-right: 3rem; 
 }
-
 .navbar nav ul li a { 
-    color: var(--text-muted); 
-    font-weight: 600; 
-    text-decoration: none; 
-    position: relative; 
-    padding: 0.5rem 0; 
-    transition: color var(--transition-speed); 
-    font-size: 0.95rem;
+    color: var(--text-muted); font-weight: 600; text-decoration: none; 
+    position: relative; padding: 0.5rem 0; transition: color var(--transition-speed); font-size: 0.95rem;
 }
 .navbar nav ul li a:hover, .navbar nav ul li a.active { color: var(--text-color); }
 .navbar nav ul li a::after {
@@ -111,75 +95,42 @@ body {
 }
 .navbar nav ul li a:hover::after, .navbar nav ul li a.active::after { width: 100%; }
 
-/* 主題切換按鈕 */
 .theme-toggle {
-    background: none; 
-    border: none; 
-    cursor: pointer; 
-    color: var(--text-color);
-    font-size: 1.2rem; 
-    padding: 0.5rem;
-    transition: transform 0.3s ease, color 0.3s ease;
-    display: flex; 
-    align-items: center; 
-    justify-content: center;
-    position: absolute;
-    right: 1.5rem; 
-    top: 50%;
-    transform: translateY(-50%);
+    background: none; border: none; cursor: pointer; color: var(--text-color);
+    font-size: 1.2rem; padding: 0.5rem; transition: transform 0.3s ease, color 0.3s ease;
+    display: flex; align-items: center; justify-content: center;
+    position: absolute; right: 1.5rem; top: 50%; transform: translateY(-50%);
 }
 .theme-toggle:hover { color: var(--primary-color); transform: translateY(-50%) rotate(15deg); }
 
-/* --- 頁面轉場 (淡入 + 淡出) --- */
+/* --- 頁面轉場 (淡入+淡出+Footer置底) --- */
 .page-transition {
-    opacity: 1;
-    transform: translateY(0);
+    opacity: 1; transform: translateY(0);
     transition: opacity 0.4s ease-out, transform 0.4s ease-out;
     animation: fadeInUp 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
     
-    /* === 讓內容區自動撐開高度，將 Footer 推到底部 === */
-    flex: 1; 
-    display: flex;       /* 讓內部區塊也能滿版控制 */
-    flex-direction: column; 
+    /* 讓內容撐開高度 */
+    flex: 1; display: flex; flex-direction: column; 
 }
-
-/* 確保 main 也能撐開 */
-.page-transition main {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-}
-/* 確保 section 也能撐開 (針對置中內容的頁面如 Contact) */
-.page-transition main .page-section {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center; /* 讓內容垂直置中 (可選) */
-}
-
+.page-transition main { flex: 1; display: flex; flex-direction: column; }
+.page-transition main .page-section { flex: 1; display: flex; flex-direction: column; justify-content: center; }
 
 @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-
-body.fade-out .page-transition {
-    opacity: 0;
-    transform: translateY(-10px);
-}
+body.fade-out .page-transition { opacity: 0; transform: translateY(-10px); }
 
 /* --- Hero Section --- */
 .hero-section {
-    min-height: calc(100vh - 76px); /* 扣除 navbar 高度 */
+    min-height: calc(100vh - 76px);
     display: flex; align-items: center; justify-content: center; text-align: center;
     background: linear-gradient(rgba(23, 25, 35, 0.7), rgba(23, 25, 35, 0.7)), url('../images/hero-background.jpg') center center / cover no-repeat;
-    position: relative;
-    width: 100%; /* 確保寬度滿版 */
+    position: relative; width: 100%;
 }
 [data-theme="light"] .hero-section {
     background: linear-gradient(rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.85)), url('../images/hero-background.jpg') center center / cover no-repeat;
 }
 .hero-content h1 {
     font-family: var(--heading-font); font-size: clamp(2.5rem, 6vw, 4.5rem);
-    color: var(--text-color); margin: 0 0 1rem;
-    text-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    color: var(--text-color); margin: 0 0 1rem; text-shadow: 0 4px 20px rgba(0,0,0,0.1);
 }
 .hero-content p { font-size: 1.25rem; color: var(--text-muted); max-width: 600px; margin: 0 auto 2.5rem; }
 
@@ -188,14 +139,9 @@ body.fade-out .page-transition {
     display: inline-block; background-color: var(--primary-color); color: #fff;
     padding: 0.8rem 2.5rem; border-radius: 50px; font-size: 1rem; font-weight: 700;
     text-decoration: none; border: none; cursor: pointer;
-    box-shadow: 0 4px 15px rgba(79, 209, 197, 0.3);
-    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(79, 209, 197, 0.3); transition: all 0.3s ease;
 }
-.cta-button:hover {
-    background-color: var(--primary-hover);
-    transform: translateY(-3px);
-    box-shadow: 0 8px 25px rgba(79, 209, 197, 0.5);
-}
+.cta-button:hover { background-color: var(--primary-hover); transform: translateY(-3px); box-shadow: 0 8px 25px rgba(79, 209, 197, 0.5); }
 
 /* --- 通用卡片與區塊 --- */
 .page-section { padding: 6rem 0; width: 100%; }
@@ -208,12 +154,27 @@ body.fade-out .page-transition {
     background: var(--primary-color); margin: 1rem auto 0; border-radius: 3px;
 }
 
-.project-card, .project-info-box, .about-content, .skills-list span, #contact-form input, #contact-form textarea {
+.project-card, .project-info-box, .about-content, .skills-list span, #contact-form input, #contact-form textarea, .embed-wrapper {
     background: var(--card-background);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     border: 1px solid var(--border-color);
     box-shadow: 0 8px 32px 0 var(--shadow-color);
+}
+
+/* --- 內嵌內容 (Google Form / Web App) 美化 - 修正版 --- */
+.embed-wrapper {
+    position: relative;
+    /* 修改這裡：放寬最大寬度 */
+    width: 100%; 
+    max-width: 100%; /* 原本是 800px，改為 100% 讓它填滿 container */
+    margin: 0 auto;
+    border-radius: 12px; overflow: hidden;
+}
+.embed-wrapper iframe {
+    width: 100%; height: 850px; border: none; display: block;
+    filter: var(--form-filter); 
+    transition: filter 0.5s ease;
 }
 
 /* --- 關於我 --- */
@@ -223,8 +184,7 @@ body.fade-out .page-transition {
 }
 .about-avatar {
     width: 250px; height: 250px; border-radius: 20px; overflow: hidden;
-    border: 4px solid var(--primary-color);
-    box-shadow: 0 0 20px rgba(79, 209, 197, 0.3);
+    border: 4px solid var(--primary-color); box-shadow: 0 0 20px rgba(79, 209, 197, 0.3);
 }
 .about-avatar img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
 .about-avatar:hover img { transform: scale(1.05); }
@@ -236,50 +196,19 @@ body.fade-out .page-transition {
 }
 .skills-list span:hover { transform: translateY(-3px); border-color: var(--primary-color); }
 
-/* --- 內嵌內容 (Google Form / Web App) 美化 --- */
-.embed-wrapper {
-    position: relative;
-    width: 100%; max-width: 800px; margin: 0 auto;
-    border-radius: 12px; overflow: hidden;
-    background: var(--card-background);
-    box-shadow: 0 8px 32px 0 var(--shadow-color);
-}
-.embed-wrapper iframe {
-    width: 100%; height: 850px; border: none; display: block;
-    filter: var(--form-filter); 
-    transition: filter 0.5s ease;
-}
-
-/* --- 聯絡我 (從 contact.html 移過來的樣式) --- */
+/* --- 聯絡我 --- */
 .contact-container { text-align: center; }
-.contact-info {
-    font-size: 1.2rem;
-    color: var(--text-muted);
-    max-width: 600px;
-    margin: 0 auto 2rem;
-}
-.contact-buttons {
-    margin-top: 2.5rem;
-    display: flex; justify-content: center; gap: 1.5rem; flex-wrap: wrap;
-}
+.contact-info { font-size: 1.2rem; color: var(--text-muted); max-width: 600px; margin: 0 auto 2.5rem; }
+.contact-buttons { margin-top: 2.5rem; display: flex; justify-content: center; gap: 1.5rem; flex-wrap: wrap; }
 .contact-buttons a {
-    display: inline-block;
-    background-color: var(--primary-color);
-    color: #fff; /* 強制文字白色 */
-    padding: 0.8rem 2rem;
-    border-radius: 50px;
-    font-size: 1.1rem;
-    font-weight: 700;
-    text-decoration: none !important; /* CSS 已設定，這裡加強確保 */
-    border-bottom: none !important;   /* 強制移除底線 */
-    transition: background-color 0.3s ease, transform 0.3s ease;
-    box-shadow: 0 4px 15px rgba(79, 209, 197, 0.3);
+    display: inline-block; background-color: var(--primary-color); color: #fff;
+    padding: 0.8rem 2rem; border-radius: 50px; font-size: 1.1rem; font-weight: 700;
+    text-decoration: none !important; border-bottom: none !important;
+    transition: background-color 0.3s ease, transform 0.3s ease; box-shadow: 0 4px 15px rgba(79, 209, 197, 0.3);
 }
 .contact-buttons a:hover {
-    background-color: var(--primary-hover);
-    transform: translateY(-3px);
-    box-shadow: 0 8px 25px rgba(79, 209, 197, 0.5);
-    text-decoration: none !important;
+    background-color: var(--primary-hover); transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(79, 209, 197, 0.5); text-decoration: none !important;
 }
 
 /* --- 專案列表 --- */
@@ -287,9 +216,7 @@ body.fade-out .page-transition {
 .project-card { border-radius: 16px; overflow: hidden; transition: transform 0.3s ease; display: flex; flex-direction: column; }
 .project-card:hover { transform: translateY(-10px); }
 .project-image { height: 220px; background-size: cover; background-position: center; position: relative; }
-.project-image::after {
-    content: ''; position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.6), transparent);
-}
+.project-image::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.6), transparent); }
 .project-card-content { padding: 2rem; flex-grow: 1; display: flex; flex-direction: column; }
 .project-card-content h3 { margin: 0 0 1rem; color: var(--text-color); font-size: 1.5rem; }
 .project-card-content p { color: var(--text-muted); margin-bottom: 2rem; flex-grow: 1; }
@@ -301,37 +228,22 @@ body.fade-out .page-transition {
 
 /* --- 頁尾 --- */
 .footer {
-    background-color: var(--navbar-background);
-    padding: 3rem 1rem; text-align: center; color: var(--text-muted);
-    border-top: 1px solid var(--border-color);
-    backdrop-filter: blur(10px);
-    /* Footer 不需要再額外設定 positioning，因為上面使用了 Flexbox */
+    background-color: var(--navbar-background); padding: 3rem 1rem; text-align: center; color: var(--text-muted);
+    border-top: 1px solid var(--border-color); backdrop-filter: blur(10px);
 }
 .footer .social-links a {
-    margin: 0 12px; color: var(--text-muted); font-size: 1.5rem;
-    transition: all 0.3s ease; display: inline-flex;
+    margin: 0 12px; color: var(--text-muted); font-size: 1.5rem; transition: all 0.3s ease; display: inline-flex;
     width: 45px; height: 45px; align-items: center; justify-content: center;
-    border-radius: 50%; background: rgba(255,255,255,0.05);
-    text-decoration: none !important;
+    border-radius: 50%; background: rgba(255,255,255,0.05); text-decoration: none !important;
 }
-.footer .social-links a:hover {
-    color: #fff; background: var(--primary-color); transform: translateY(-3px);
-    text-decoration: none !important;
-}
+.footer .social-links a:hover { color: #fff; background: var(--primary-color); transform: translateY(-3px); }
 
-/* --- RWD 修正 --- */
+/* --- RWD --- */
 @media (max-width: 768px) {
     .navbar .container { flex-direction: column; gap: 1rem; }
     .about-content { grid-template-columns: 1fr; text-align: center; padding: 2rem; }
     .about-avatar { margin: 0 auto; }
-    .navbar nav ul { 
-        gap: 1rem; font-size: 0.9rem; margin-right: 0; 
-        flex-wrap: wrap; justify-content: center;
-    }
-    .theme-toggle {
-        position: static;
-        transform: none;
-        margin-top: 0.5rem;
-    }
+    .navbar nav ul { gap: 1rem; font-size: 0.9rem; margin-right: 0; flex-wrap: wrap; justify-content: center; }
+    .theme-toggle { position: static; transform: none; margin-top: 0.5rem; }
     .theme-toggle:hover { transform: rotate(15deg); }
 }
