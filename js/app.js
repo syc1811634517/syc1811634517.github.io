@@ -1,38 +1,74 @@
 document.addEventListener("DOMContentLoaded", () => {
     const mainContentContainer = document.querySelector('.page-transition');
+    const themeToggleBtn = document.getElementById('theme-toggle-btn');
+    
+    /* --- 1. 主題切換 (Dark/Light Mode) --- */
+    // 初始化：檢查 localStorage 或系統偏好
+    const initTheme = () => {
+        const savedTheme = localStorage.getItem('theme');
+        const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        
+        if (savedTheme) {
+            document.documentElement.setAttribute('data-theme', savedTheme);
+            updateThemeIcon(savedTheme);
+        } else {
+            // 預設為 Dark，如果想預設 Light，可以改這裡
+            const defaultTheme = 'dark'; 
+            document.documentElement.setAttribute('data-theme', defaultTheme);
+            updateThemeIcon(defaultTheme);
+        }
+    };
 
-    // 處理點擊事件的函數
+    const toggleTheme = () => {
+        const currentTheme = document.documentElement.getAttribute('data-theme');
+        const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+        
+        document.documentElement.setAttribute('data-theme', newTheme);
+        localStorage.setItem('theme', newTheme);
+        updateThemeIcon(newTheme);
+    };
+
+    const updateThemeIcon = (theme) => {
+        const icon = themeToggleBtn.querySelector('i');
+        if (theme === 'light') {
+            icon.className = 'fa-solid fa-moon'; // 亮色模式下顯示月亮 (切換到深色)
+        } else {
+            icon.className = 'fa-solid fa-sun'; // 深色模式下顯示太陽 (切換到亮色)
+        }
+    };
+
+    if (themeToggleBtn) {
+        themeToggleBtn.addEventListener('click', toggleTheme);
+    }
+    initTheme();
+
+    /* --- 2. 頁面轉場與網址優化 --- */
     const handleLinkClick = (event) => {
         const link = event.currentTarget;
         const url = link.href;
 
-        // 如果是外部連結、履歷PDF或錨點連結，則正常處理
         if (link.target === '_blank' || link.protocol !== window.location.protocol || url.includes('#')) {
             return;
         }
 
-        // 如果點擊的是當前頁面，則不處理
         if (url === window.location.href) {
             event.preventDefault();
             return;
         }
 
-        event.preventDefault(); // 阻止默認跳轉行為
+        event.preventDefault();
         
-        // 播放淡出動畫
         document.body.classList.add('fade-out');
         
-        // 在動畫結束後加載新頁面
         setTimeout(() => {
             fetchPage(url);
-        }, 400); // 匹配 CSS transition 時間
+        }, 300); // 配合 CSS 動畫時間
     };
 
-    // 透過 fetch 加載並替換頁面內容的函數
     const fetchPage = async (url) => {
         try {
             const response = await fetch(url);
-            if (!response.ok) { throw new Error('Network response was not ok.'); }
+            if (!response.ok) throw new Error('Network response was not ok.');
             const text = await response.text();
             
             const parser = new DOMParser();
@@ -41,34 +77,44 @@ document.addEventListener("DOMContentLoaded", () => {
             const newContent = doc.querySelector('.page-transition').innerHTML;
             const newTitle = doc.querySelector('title').innerText;
             
-            // 替換內容和標題
             mainContentContainer.innerHTML = newContent;
             document.title = newTitle;
 
-            // 更新網址列
-            window.history.pushState({ path: url }, '', url);
+            // --- 網址美化關鍵 ---
+            // 移除 .html，如果是 index 也移除
+            let displayUrl = url;
+            if (displayUrl.endsWith('index.html')) {
+                displayUrl = displayUrl.replace('/index.html', '/');
+            } else {
+                displayUrl = displayUrl.replace('.html', '');
+            }
+            
+            window.history.pushState({ path: displayUrl, fetchUrl: url }, '', displayUrl);
 
-            // 重新綁定事件
+            // 重新綁定事件 (因為 DOM 換了)
             bindNavLinks();
             updateActiveLink();
             
-            // 移除 fade-out class，讓新內容淡入
             document.body.classList.remove('fade-out');
-            window.scrollTo(0, 0); // 切換頁面後滾動到頂部
+            window.scrollTo(0, 0);
 
         } catch (error) {
             console.error('頁面加載失敗:', error);
-            window.location.href = url; // 如果 fetch 失敗，則 fallback 到傳統跳轉
+            window.location.href = url; 
         }
     };
 
-    // 更新導覽列 active 狀態
     const updateActiveLink = () => {
-        const currentPath = window.location.pathname.replace(/\/$/, ""); // 移除結尾的 /
+        // 取得當前真實路徑，並處理 .html 結尾的情況以進行比對
+        let currentPath = window.location.pathname;
+        if (currentPath.endsWith('/')) currentPath += 'index.html';
+        if (!currentPath.endsWith('.html')) currentPath += '.html';
+
         document.querySelectorAll('.navbar nav a').forEach(link => {
-            const linkPath = new URL(link.href).pathname.replace(/\/$/, "");
-             // 如果是專案詳細頁，也讓"專案"標籤保持 active
-            if (linkPath === currentPath || (currentPath.startsWith('/projects/') && linkPath.endsWith('/projects.html'))) {
+            const linkPath = new URL(link.href).pathname;
+            
+            // 簡單的路徑比對
+            if (linkPath === currentPath || (currentPath.includes('/projects/') && linkPath.includes('projects.html'))) {
                 link.classList.add('active');
             } else {
                 link.classList.remove('active');
@@ -76,26 +122,31 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     };
 
-    // 綁定所有內部連結的點擊事件
     const bindNavLinks = () => {
         document.querySelectorAll('a').forEach(link => {
-            // 只為內部連結綁定
-             if (link.hostname === window.location.hostname && !link.href.includes('#') && link.target !== '_blank') {
-                link.removeEventListener('click', handleLinkClick); // 先移除舊的監聽器避免重複
+            if (link.hostname === window.location.hostname && !link.href.includes('#') && link.target !== '_blank') {
+                link.removeEventListener('click', handleLinkClick);
                 link.addEventListener('click', handleLinkClick);
             }
         });
     }
 
-    // 讓瀏覽器的「上一頁/下一頁」也能觸發轉場
     window.addEventListener('popstate', (event) => {
+        // 如果按上一頁，我們需要知道原本的 HTML 檔案在哪
+        // 這裡做一個簡單的 fallback：如果 state 裡沒有 fetchUrl，就嘗試把當前網址加 .html
+        let targetUrl = window.location.href;
+        if (event.state && event.state.fetchUrl) {
+            targetUrl = event.state.fetchUrl;
+        } else if (!targetUrl.endsWith('.html') && !targetUrl.endsWith('/')) {
+            targetUrl += '.html';
+        }
+
         document.body.classList.add('fade-out');
         setTimeout(() => {
-            fetchPage(window.location.href);
-        }, 400);
+            fetchPage(targetUrl);
+        }, 300);
     });
 
-    // 首次加載時執行
     bindNavLinks();
     updateActiveLink();
 });
